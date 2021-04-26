@@ -29,4 +29,14 @@ public class Account {
 		balance -= amt;
 		return true;
 	}
+	public boolean transfer(double amt, Account acc)
+	{
+		if((amt + amt*0.1) >= balance || amt <=0)
+		{
+			return false;
+		}
+		balance -= amt + amt*0.1;
+		acc.deposit(amt);
+		return true;
+	}
 }

@@ -32,4 +32,15 @@ public class Bank {
 	{
 		return customer.get(index).getFirstName()+" "+customer.get(index).getLastName();
 	}
+	public Customer findCustomer(String username)
+	{
+		for(int i=0; i<this.getNumOfCustomer(); i++){
+//			Ez.printf("Username: %s Dest: %s\n", username, this.getUsername(i));
+			if(username.equals(this.getUsername(i)))
+			{
+				return customer.get(i);
+			}
+		}
+		return null;
+	}
 }

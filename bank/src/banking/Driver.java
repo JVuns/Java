@@ -11,6 +11,9 @@ public class Driver {
 		bank1.addCustomer("Amatsuka", "Uto");
 		Account acc = new Account(10000000);
 		bank1.getCustomer(0).setAccount(acc);
+		Account acc2 = new Account(10000000);
+		bank1.addCustomer("Ozawa", "Maria");
+		bank1.getCustomer(1).setAccount(acc2);
 		while (running) {
 			Ez.print("Menu: ");
 			Ez.print("[1] Login");
@@ -39,7 +42,8 @@ public class Driver {
 								Ez.print("[1] Balance");
 								Ez.print("[2] Withdraw");
 								Ez.print("[3] Deposit");
-								Ez.print("[4] log out");
+								Ez.print("[4] Transfer");
+								Ez.print("[5] Log out");
 								int option2 = Input.nextInt();
 								int amount;
 								switch(option2) {
@@ -71,9 +75,29 @@ public class Driver {
 										Ez.pause();
 									}
 									break;
-								case 4:
+								case 5:
 									logged = false;
 									Ez.print("You have logged out");
+									break;
+								case 4:
+									Ez.print("Please enter the destination account:");
+									Input.nextLine();
+									String dest = Input.nextLine();
+									Ez.print("Please enter the amount of credit:");
+									double money = Input.nextDouble();
+									Ez.printf("Destination		: %s\n"
+											+ "Amount of credit	: %s\n"
+											+ "Fee 			: %s\n", dest, money, money*0.1);
+									Ez.print("Confirm(y/n)");
+									Input.nextLine();
+									char confirmation = Input.nextLine().charAt(0);
+									if(confirmation == 'y' || confirmation == 'Y') {
+										try{bank1.getCustomer(i).getAccount().transfer(money, bank1.findCustomer(dest).getAccount());
+											Ez.print("%");
+										}catch(Exception e) {
+											Ez.print("The destination is invalid");
+										}
+									}
 									break;
 								}
 							}
@@ -99,8 +123,8 @@ public class Driver {
 				char confirm = Input.next().charAt(0);
 				if (confirm == 'y' || confirm == 'Y')
 					bank1.addCustomer(firstName, lastName);
-					Account acc2 = new Account(0);
-					bank1.getCustomer(bank1.getNumOfCustomer()-1).setAccount(acc2);
+					Account acc3 = new Account(0);
+					bank1.getCustomer(bank1.getNumOfCustomer()-1).setAccount(acc3);
 					Ez.print("Account created");
 					Ez.print();
 				break;
